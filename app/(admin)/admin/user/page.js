@@ -53,6 +53,27 @@ const users = [
   },
 ];
 
+const RoleCell = ({ initialRole }) => {
+  const [role, setRole] = useState(initialRole);
+
+  return (
+    <Select
+      value={role}
+      onValueChange={(val) => {
+        setRole(val);
+        console.log("Role changed to:", val);
+      }}>
+      <SelectTrigger className="w-24">
+        <SelectValue placeholder="Role" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="user">User</SelectItem>
+        <SelectItem value="admin">Admin</SelectItem>
+      </SelectContent>
+    </Select>
+  );
+};
+
 export default function AllUser() {
   const columns = useMemo(
     () =>
@@ -114,25 +135,26 @@ export default function AllUser() {
         {
           accessorKey: "role",
           header: "Role",
-          cell: ({ row }) => {
-            const [role, setRole] = useState(row.original.role);
-            return (
-              <Select
-                value={role}
-                onValueChange={(val) => {
-                  setRole(val);
-                  console.log("Role changed to:", val);
-                }}>
-                <SelectTrigger className="w-24">
-                  <SelectValue placeholder="Role" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="user">User</SelectItem>
-                  <SelectItem value="admin">Admin</SelectItem>
-                </SelectContent>
-              </Select>
-            );
-          },
+          cell: ({ row }) => <RoleCell initialRole={row.original.role} />,
+          // cell: ({ row }) => {
+          //   const [role, setRole] = useState(row.original.role);
+          //   return (
+          //     <Select
+          //       value={role}
+          //       onValueChange={(val) => {
+          //         setRole(val);
+          //         console.log("Role changed to:", val);
+          //       }}>
+          //       <SelectTrigger className="w-24">
+          //         <SelectValue placeholder="Role" />
+          //       </SelectTrigger>
+          //       <SelectContent>
+          //         <SelectItem value="user">User</SelectItem>
+          //         <SelectItem value="admin">Admin</SelectItem>
+          //       </SelectContent>
+          //     </Select>
+          //   );
+          // },
         },
         {
           id: "actions",
