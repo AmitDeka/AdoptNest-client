@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { BASE_URL } from "@/lib/api";
 
 export default function Login({
   heading = "Login",
@@ -32,7 +33,6 @@ export default function Login({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const BASE_URL = "https://adoptnest-server.onrender.com/api";
     setLoading(true);
 
     try {
@@ -42,7 +42,7 @@ export default function Login({
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify(form),
+        body: JSON.stringify({ email: form.email, password: form.password }),
       });
 
       const data = await res.json();
@@ -63,7 +63,7 @@ export default function Login({
 
   return (
     <section className="py-8 font-karla">
-      <div className="container">
+      <div className="container mx-auto">
         <div className="flex flex-col gap-4">
           <div className="mx-auto w-full max-w-sm p-6">
             <div className="mb-6 flex flex-col items-center">

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { toast } from "sonner";
+import { BASE_URL } from "@/lib/api";
 
 export default function Signup({
   heading = "Register",
@@ -43,7 +44,6 @@ export default function Signup({
       return;
     }
 
-    const BASE_URL = "https://adoptnest-server.onrender.com/api";
     setLoading(true);
 
     try {
@@ -77,7 +77,7 @@ export default function Signup({
   };
   return (
     <section className="py-8 font-karla">
-      <div className="container">
+      <div className="container mx-auto">
         <div className="flex flex-col gap-4">
           <div className="mx-auto w-full max-w-sm p-6">
             <div className="mb-6 flex flex-col items-center">

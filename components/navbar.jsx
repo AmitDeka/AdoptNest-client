@@ -28,9 +28,13 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { getCategoryItems } from "@/lib/api";
+import { getCurrentUser } from "@/lib/auth";
 
 export default async function Navbar() {
   const categoryItems = await getCategoryItems();
+  const user = await getCurrentUser();
+
+  console.log("user data :", user);
 
   // const category = [
   //   {
@@ -140,18 +144,21 @@ export default async function Navbar() {
           <Button variant="outline" asChild>
             <Link href="/pet-submit">Submit a Pet</Link>
           </Button>
-          <Button asChild variant="destructive">
-            <Link href="/auth/login">
-              <LogOutIcon className="size-4" />
-              Logout
-            </Link>
-          </Button>
-          <Button asChild>
-            <Link href="/auth/login">
-              <User2 className="size-4" />
-              Login
-            </Link>
-          </Button>
+          {user ? (
+            <Button asChild variant="destructive">
+              <Link href="/auth/login">
+                <LogOutIcon className="size-4" />
+                Logout
+              </Link>
+            </Button>
+          ) : (
+            <Button asChild>
+              <Link href="/auth/login">
+                <User2 className="size-4" />
+                Login
+              </Link>
+            </Button>
+          )}
         </div>
         <Sheet>
           <SheetTrigger asChild className="lg:hidden">
